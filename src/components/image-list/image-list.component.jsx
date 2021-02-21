@@ -1,12 +1,17 @@
 
-import {Container, Row, Col} from "react-bootstrap"
+import ImageCard from '../image-card/image-card.component';
 
-const ImageList = () => {
+import {Container, Row, Col , Card} from 'react-bootstrap'
+
+
+const ImageList = ({images}) => {
     return (
-        <Container>
-            <Row>
-            
-            </Row>
+        <Container className="image-list">
+            {
+                images.map(image => (
+                    <ImageCard src={image.urls.regular} height={image.height} width = {image.width}/>
+                ))
+            }
         </Container>
     )
 }

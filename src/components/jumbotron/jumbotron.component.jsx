@@ -8,8 +8,6 @@ const JumbotronComponent = () => {
         <Jumbotron className="jumbotron" fluid>
             <h1>Free Images!</h1>
             <p>Search and Download free high-quality images from the internet.</p>
-            <p>
-            </p>
             <SearchBar/>
 
         </Jumbotron>
