@@ -21,7 +21,7 @@ const ImageCard = ({src, height, width}) => {
     }
 
     let rowSpan = Math.ceil((((height * 1080) / width / hardCodeDivisor) + (rowGap/2)) / (rowHeight + rowGap)) 
-    console.log( imageListWidth )
+    // console.log( imageListWidth )
     return (
         <Card className = "image-card"
             style={{display: "block", gridRowEnd:`span ${rowSpan}`}}>

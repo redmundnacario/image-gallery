@@ -20,16 +20,21 @@ const IMAGE_INCREMENT_COUNT = 10;
 const App = () => {
   const [loading, setLoading] = useState(false)
   const [images, setImages] =useState([])
-  const [page, setPage] = useState(4);
   const [query, setQuery] = useState("");
   
   // Custom hooks output
   const [width, height] = useWindowSize();
-  
+  const page =usePage()
+
 
   useEffect(()=>{
-    fetchImageList()
-  }, [])
+    if (page <= 3){
+      fetchImageList()
+    }
+  }, [page])
+
+
+
 
   const fetchImageList = async() =>{
     setLoading(true);
@@ -47,15 +52,16 @@ const App = () => {
       .then(response => response.json())
       .then(result => result)
 
-    setImages(result)
+    setImages([...images,...result])
     setLoading(false);
     // console.log(result)
+    console.log(page)
   }
 
   return (
     <div className="App">
       <NavbarComponent/>
-      <JumbotronComponent />
+      <JumbotronComponent page={page}/>
       <ImageList images={images}/>
       <SpinnerComponent loading={loading}/>
     </div>
@@ -63,17 +69,46 @@ const App = () => {
 }
 
 // Custom Hooks
+// Get Windows Size
 function useWindowSize() {
     const [size, setSize] = useState([0, 0]);
     useLayoutEffect(() => {
+
       function updateSize() {
-        setSize([window.innerWidth, window.innerHeight]);
+        setSize([
+                window.innerWidth,
+                window.innerHeight
+                ]);
       }
+
       window.addEventListener('resize', updateSize);
       updateSize();
       return () => window.removeEventListener('resize', updateSize);
     }, []);
     return size;
 }
+
+function usePage(){
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    function updatePage(){
+      const windowScrollHeight = window.innerHeight + window.scrollY
+      const documentBodyHeight = document.body.scrollHeight 
+      if ( windowScrollHeight >= documentBodyHeight -2 ){
+        // console.log("positive",windowScrollHeight, documentBodyHeight -2 )
+        setPage((oldPage) => {
+          return oldPage + 1;
+        })
+      }
+    }
+    
+    window.addEventListener("scroll", updatePage);
+    return () => window.removeEventListener("scroll", updatePage);
+  }, []);
+  return page;
+}
+
+
+
 
 export default App;

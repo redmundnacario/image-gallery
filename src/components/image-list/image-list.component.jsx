@@ -8,8 +8,8 @@ const ImageList = ({images}) => {
     return (
         <Container className="image-list">
             {
-                images.map(image => (
-                    <ImageCard src={image.urls.regular} height={image.height} width = {image.width}/>
+                images.map((image, index) => (
+                    <ImageCard key={image.id + `${index}`} src={image.urls.regular} height={image.height} width = {image.width}/>
                 ))
             }
         </Container>
