@@ -1,20 +1,22 @@
-
+import {useState } from 'react';
 import { FormControl, 
          Button, 
-         InputGroup,
-         Row, Col } from 'react-bootstrap'
+         InputGroup } from 'react-bootstrap';
 
 
-const SearchBar = () => {
+const SearchBar = ({handleClick}) => {
+    const [searchString, setSearchString] =useState("")
     return (
         <div className="search-bar">
-            <InputGroup>
-                <FormControl type="text" placeholder="Search">
-                </FormControl>
-                <InputGroup.Append>
-                    <Button variant="primary" type="submit">Go!</Button>
-                </InputGroup.Append>
-            </InputGroup>
+            <form onSubmit={(e)=> handleClick(e, searchString)}>
+                <InputGroup>
+                    <FormControl type="text" placeholder="Search" onChange={(e) => setSearchString(e.target.value)}>
+                    </FormControl>
+                    <InputGroup.Append>
+                        <Button variant="primary" type="submit" onClick={null}>Go!</Button>
+                    </InputGroup.Append>
+                </InputGroup>
+            </form>
         </div>
     )
 }
