@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import JumbotronComponent from './components/jumbotron/jumbotron.component';
+import NavbarComponent from "./components/navbar/navbar.component";
 
-function App() {
+import {useState, useEffect} from 'react'
+
+import React from 'react'
+
+
+const clientID = `?client_id=pz0F3WnapMOL2DspE3UwW36_ij17qQ6gaCgIUL-lxx4`;
+const mainURL = `https://api.unsplash.com/photos/`;
+const searchURL = `https://api.unsplash.com/search/photos/`;
+
+const App = () => {
+  const [loading, setLoading] = useState(false)
+  const [images, setImages] =useState([])
+  const [page, setPage] = useState(4);
+  const [query, setQuery] = useState("");
+
+  useEffect(()=>{
+    fetchImageList()
+    console.log(images)
+  }, [])
+
+  const fetchImageList = async() =>{
+    setLoading(true);
+
+    const pageURL = `&page=${page}`;
+    // const queryURL = `&query=${query}`;
+
+    const url = `${mainURL}${clientID}${pageURL}`
+    console.log(url)
+    const result = await fetch(url)
+      .then(response => response.json())
+      .then(result => result)
+
+    setImages(result)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavbarComponent/>
+      <JumbotronComponent/>
     </div>
-  );
+  )
 }
 
 export default App;
