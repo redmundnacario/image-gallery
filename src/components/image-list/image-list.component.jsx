@@ -9,7 +9,8 @@ const ImageList = ({images}) => {
         <Container className="image-list">
             {
                 images.map((image, index) => (
-                    <ImageCard key={image.id + `${index}`} src={image.urls.regular} height={image.height} width = {image.width}/>
+                    <ImageCard key={image.id + `${index}`} 
+                        {...image}/>
                 ))
             }
         </Container>

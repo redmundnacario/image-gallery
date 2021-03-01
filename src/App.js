@@ -47,6 +47,7 @@ const App = () => {
       url = `${searchURL}?` + new URLSearchParams({
         page: page,
         query: searchString,
+        per_page: DEFAULT_IMAGE_COUNT,
         client_id: clientID,
       })
       console.log(url)
